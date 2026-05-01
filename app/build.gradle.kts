@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.pipette"
+    namespace = "com.baskaeva.pipette"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.pipette"
+        applicationId = "com.baskaeva.pipette"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
@@ -32,12 +32,29 @@ android {
             )
         }
     }
+
+    applicationVariants.all {
+        val variant = this
+        variant.outputs
+            .map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
+            .forEach { output ->
+                output.outputFileName = "Pipette-v${variant.versionName}.apk"
+            }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
         jvmTarget = "17"
+    }
+
+    // 16 KB page size: align ELF load segments for Android 15+ compatibility
+    defaultConfig {
+        ndk {
+            abiFilters += setOf("arm64-v8a", "x86_64")
+        }
     }
     buildFeatures {
         compose = true
@@ -46,6 +63,16 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+        // Required for 16 KB page size compatibility (Google Play requirement from Nov 1, 2025)
+        jniLibs {
+            useLegacyPackaging = false
+        }
+    }
+
+    // Align ELF segments to 16 KB boundaries for Android 15+ devices
+    androidResources {
+        @Suppress("UnstableApiUsage")
+        generateLocaleConfig = false
     }
 }
 
@@ -86,6 +113,9 @@ dependencies {
 
     // Coil
     implementation(libs.coil.compose)
+
+    // ExifInterface — для сохранения ориентации фото после кропа
+    implementation(libs.androidx.exifinterface)
 
     // Coroutines
     implementation(libs.kotlinx.coroutines.android)
