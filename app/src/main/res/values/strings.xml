@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">Pipette</string>
+
+    <string name="camera_permission">Для работы камеры необходимо разрешение</string>
+    <string name="cam_not_permitted">Доступ к камере запрещён.
+Разрешите его в настройках приложения.</string>
+    <string name="go_to_settings">Открыть настройки</string>
+    <string name="give_permission">Разрешить доступ</string>
+    <string name="go_to_gallery">Открыть галерею</string>
+
+    <string name="colour_count">Кол-во цветов</string>
+    <string name="copy_colour">Нажмите на цвет, чтобы скопировать</string>
+
+    <string name="fav">Избранное</string>
+    <string name="fav_delete">Убрать из избранного</string>
+    <string name="fav_add">Добавить в избранное</string>
+
+    <string name="back">Назад</string>
+
+    <string name="add_colour_by_hex">Добавить цвет по HEX-коду</string>
+    <string name="print_hex">Введите HEX-код</string>
+    <string name="uncorrect_hex">Некорректный HEX-код</string>
+    <string name="hex">HEX-код</string>
+    <string name="hex_hint">#FF5733</string>
+
+    <string name="no_favs">Избранных цветов пока нет</string>
+
+    <string name="palette">Палитра</string>
+    <string name="palette_loading">Извлечение палитры...</string>
 </resources>
